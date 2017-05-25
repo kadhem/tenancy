@@ -5,6 +5,10 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.hibernate.MultiTenancyStrategy;
+import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
+import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -21,8 +25,13 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "tn.tcon.tenancy.dao")
-@PropertySource(value="classpath:persistence.properties")
+@PropertySource(value = "classpath:persistence.properties")
 public class JpaConfig {
+
+	@Autowired
+	MultiTenantConnectionProvider provider;
+	@Autowired
+	CurrentTenantIdentifierResolver resolver;
 
 	@Bean(destroyMethod = "close")
 	DataSource dataSource(Environment env) {
@@ -67,6 +76,12 @@ public class JpaConfig {
 		// If the value of this property is true, Hibernate will format the SQL
 		// that is written to the console.
 		jpaProperties.put("hibernate.format_sql", env.getRequiredProperty("hibernate.format_sql"));
+		
+		
+		//multi tenancy config
+		jpaProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
+		jpaProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT_CONNECTION_PROVIDER, provider);
+		jpaProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, resolver);
 
 		entityManagerFactoryBean.setJpaProperties(jpaProperties);
 

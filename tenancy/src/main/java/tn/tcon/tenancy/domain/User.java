@@ -21,6 +21,8 @@ public class User implements Serializable {
 
 	private String name;
 
+	private String tenantName;
+
 	public User() {
 		super();
 	}
@@ -39,6 +41,14 @@ public class User implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getTenantName() {
+		return tenantName;
+	}
+
+	public void setTenantName(String tenantName) {
+		this.tenantName = tenantName;
 	}
 
 }
