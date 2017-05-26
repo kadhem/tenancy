@@ -47,7 +47,7 @@ public class JpaConfig {
 	@Bean
 	LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Environment env) {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-		entityManagerFactoryBean.setDataSource(dataSource);
+//		entityManagerFactoryBean.setDataSource(dataSource);
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
 		adapter.setGenerateDdl(true);
 		entityManagerFactoryBean.setJpaVendorAdapter(adapter);
