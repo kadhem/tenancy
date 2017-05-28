@@ -21,7 +21,7 @@ public class User implements Serializable {
 
 	private String name;
 
-	private String tenantName;
+	private String schemaNom;
 
 	public User() {
 		super();
@@ -43,12 +43,12 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	public String getTenantName() {
-		return tenantName;
+	public String getSchemaNom() {
+		return schemaNom;
 	}
 
-	public void setTenantName(String tenantName) {
-		this.tenantName = tenantName;
+	public void setSchemaNom(String schemaNom) {
+		this.schemaNom = schemaNom;
 	}
 
 }

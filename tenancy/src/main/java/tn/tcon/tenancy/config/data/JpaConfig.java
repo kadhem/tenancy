@@ -1,4 +1,4 @@
-package tn.tcon.tenancy.config;
+package tn.tcon.tenancy.config.data;
 
 import java.util.Properties;
 
@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -47,10 +48,11 @@ public class JpaConfig {
 	@Bean
 	LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Environment env) {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-//		entityManagerFactoryBean.setDataSource(dataSource);
-		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-		adapter.setGenerateDdl(true);
-		entityManagerFactoryBean.setJpaVendorAdapter(adapter);
+		entityManagerFactoryBean.setDataSource(dataSource);
+//		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+//		adapter.setGenerateDdl(true);
+//		entityManagerFactoryBean.setJpaVendorAdapter(adapter);
+		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		entityManagerFactoryBean.setPackagesToScan("tn.tcon.tenancy.domain");
 
 		Properties jpaProperties = new Properties();

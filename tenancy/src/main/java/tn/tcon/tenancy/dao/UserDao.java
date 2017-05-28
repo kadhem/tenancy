@@ -8,4 +8,5 @@ import tn.tcon.tenancy.domain.User;
 @Repository
 public interface UserDao extends JpaRepository<User, Long>{
 
+	User findUserByName(String name);
 }
